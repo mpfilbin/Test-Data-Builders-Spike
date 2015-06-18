@@ -8,7 +8,7 @@ class BaseBuilder{
   build(fixture){
     var stack = _.reduce(this.operations, (composite, func) =>{
       if(composite){
-        return _.compose(composite, func)
+        return _.flow(composite, func)
       } else {
         return func;
       }

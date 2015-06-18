@@ -12,7 +12,7 @@ class GroupBuilder extends BaseBuilder {
 
   addToPlan (plan){
     this._registerOperation((group) => {
-      group.planId = group._idp
+      group.planId = plan._id
     });
     return this;
   }

@@ -4,6 +4,7 @@ import groupFixture from './fixtures/group'
 import BaseBuilder from './BaseBuilder'
 
 import UUID from 'uuid'
+import generateUniqueKeys from 'generateUniqueKeys'
 import _ from 'lodash'
 
 const keyMap = {

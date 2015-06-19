@@ -1,6 +1,7 @@
 'use strict'
 
 class BaseBuilder{
+  
   constructor (){
     this.operations = [];
   }
@@ -18,6 +19,10 @@ class BaseBuilder{
 
   _registerOperation(fn){
     this.operations.push(fn);
+  }
+
+  _transform(transformations){
+    throw new Error("Not Implemented");
   }
 }
 

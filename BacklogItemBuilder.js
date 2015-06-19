@@ -3,7 +3,7 @@
 import fixture from './fixtures/backlogItems/feature.fixture'
 import BaseBuilder from './BaseBuilder'
 
-import uuid from 'uuid'
+import random from './util/random'
 import _ from 'lodash'
 
 
@@ -26,13 +26,13 @@ import _ from 'lodash'
 
 const transforms= {
   almId: () => {
-    return uuid.v1();
+    return random.uuid('v1');
   },
   _refObjectUUID: (group) => {
     return group.almId;
   },
   groupId: () => {
-    return uuid.v1();
+    return random.uuid('v1');
   },
   _refObjectName: (group) => {
     return `group-${group.objectID}`
@@ -44,9 +44,8 @@ const transforms= {
 
 class GroupBuilder extends BaseBuilder {
 
-  constructor(){
-    super();
-    this._registerOperation(super._transform(transforms));
+  constructor(customTransforms){
+    super(customTransforms || transforms);
   }
 
   addToPlan (plan){

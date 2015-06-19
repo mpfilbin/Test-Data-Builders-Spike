@@ -1,11 +1,10 @@
 'use strict'
 
-import groupFixture from './fixtures/group'
+import fixture from './fixtures/group.fixture'
 import BaseBuilder from './BaseBuilder'
 
-import uuid from 'uuid'
-import generateUniqueKeys from 'generateUniqueKeys'
 import _ from 'lodash'
+import random from './utils/random'
 
 
 /*
@@ -26,39 +25,40 @@ import _ from 'lodash'
 */
 
 const transforms= {
-  "almId": () => {
-    return uuid.v1();
+  almId: () => {
+    return random.uuid('v1');
   },
-  "_refObjectUUID": (group) => {
+  _refObjectUUID: (group) => {
     return group.almId;
   },
-  "groupId": () => {
-    return uuid.v1();
+  groupId: () => {
+    return random.uuid('v1');
   },
-  "_refObjectName": (group) => {
+  _refObjectName: (group) => {
     return `group-${group.objectID}`
   },
-  "_ref": (group) =>{
+  _ref: (group) =>{
     return `https://rally1.rallydev.com/slm/webservice/v2.x/project/${group.objectID}`
   }
 }
 
 class GroupBuilder extends BaseBuilder {
 
-  constructor(){
-    super();
-    this._registerOperation(super._transform(transforms));
+  constructor(customTransforms){
+    super(customTransforms || transforms);
   }
 
   addToPlan (plan){
+
     this._registerOperation((group) => {
       group.planId = plan._id
     });
+
     return this;
   }
 
   build (){
-    return super.build(groupFixture())
+    return super.build(fixture())
   }
 
 }

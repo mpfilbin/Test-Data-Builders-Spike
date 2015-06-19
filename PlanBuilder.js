@@ -7,7 +7,7 @@ import GroupBuilder from 'GroupBuilder'
 
 import fixture from './fixtures/plan.fixture'
 import _ from 'lodash'
-import uuid from 'uuid'
+import random from './utils/random'
 
 
 /*
@@ -47,29 +47,29 @@ import uuid from 'uuid'
 
 const transforms = {
   _id: (plan) => {
-    return plan._id = uuid.v1();
+    return plan._id = random.uuid('v1');
   },
   endRelease: (plan) => {
-    return plan.endRelease = uuid.v1();
+    return plan.endRelease = random.uuid('v1');
   },
   startRelease: (plan) => {
-    return plan.startRelease = uuid.v1();
+    return plan.startRelease = random.uuid('v1');
   },
   itemPlanningLevel: (plan) => {
-    return plan.itemPlanningLevel = uuid.v1();
+    return plan.itemPlanningLevel = random.uuid('v1');
   },
   planName: (plan) => {
     return plan.planName = `Plan - $(plan.planId)`;
   },
   formattedId: (plan) => {
-    return plan.formattedId = Math.round((Math.random() * (100 - 1) + 1) * 100) / 100
+    return plan.formattedId = random.integer(100, 1)
   }
 };
 
 class PlanBuilder extends BaseBuilder {
 
-  constructor (){
-    super();
+  constructor (customTransForms){
+    super(customTransForms || transforms);
   }
 
   addGroups (n){

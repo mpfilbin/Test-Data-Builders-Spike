@@ -1,7 +1,8 @@
 'use strict'
 import fixture from './fixtures/assignment.fixture'
 import BaseBuilder from 'BaseBuilder'
-import uuid from 'uuid'
+
+import random from './utils/random'
 import _ from 'lodash'
 
 /*
@@ -14,18 +15,17 @@ import _ from 'lodash'
 
 const transformations = {
   almItemId: (assignment) => {
-    return assignment.almItemId = uuid.v1();
+    return assignment.almItemId = random.uuid('v1');
   },
   percentAssigned: (assignment) => {
-    return assigment.percentAssigned = Math.round((Math.random() * (1 - 0) + 0) * 100) / 100;
+    return assigment.percentAssigned = random.float(1, 0);
   }
 };
 
 class AssignmentBuilder extends BaseBuilder {
 
-  constructor() {
-    super();
-    super._registerOperation(super._transform(transformations));
+  constructor(customTransforms) {
+    super(customTransforms || transformations);
   }
 
 
